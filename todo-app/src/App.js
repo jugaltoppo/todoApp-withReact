@@ -6,7 +6,6 @@ import TodosList from "./components/todos.component";
 import EditTodo from "./components/edit-todo.component";
 import CreateTodo from "./components/create-todo.component";
 
-
 class App extends Component {
   render() {
     return (

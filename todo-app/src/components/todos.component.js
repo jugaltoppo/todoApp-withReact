@@ -11,7 +11,7 @@ export default class TodosList extends Component {
     }
     
     componentDidMount(){
-        axios.get("http://localhost:4000")
+        axios.get("https://stark-crag-73771.herokuapp.com/todo")
         .then((res) => {
             this.setState({todos: res.data});
         })
@@ -21,7 +21,7 @@ export default class TodosList extends Component {
     }
 
     componentDidUpdate(){
-        axios.get("http://localhost:4000")
+        axios.get("https://stark-crag-73771.herokuapp.com/todo")
         .then((res) => {
             this.setState({todos: res.data});
         })

@@ -46,7 +46,7 @@ export default class CreateTodo extends Component {
             todo_completed: this.state.todo_completed
         }
 
-        axios.post("http://localhost:4000/add", todo)
+        axios.post("https://stark-crag-73771.herokuapp.com/todo/add", todo)
         .then((res) => {
             console.log(res.data)
         });
@@ -57,6 +57,8 @@ export default class CreateTodo extends Component {
             todo_priority: "",
             todo_completed: false
         });
+
+        this.props.history.push('/');
     }
 
     render () {

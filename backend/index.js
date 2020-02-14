@@ -8,15 +8,17 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
+app.use(express.static('build'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 app.use(cors());
 
-mongoose.connect('mongodb://localhost/todo')
+var uri = process.env.MONGOURL || 'mongodb://localhost/todo'
+mongoose.connect(uri)
 
 var Todo = require("./models/totoModel");
 
-app.get("/",function(req,res){
+app.get("/todo",function(req,res){
     Todo.find({})
     .then((index) => {
         res.json(index);
@@ -26,7 +28,7 @@ app.get("/",function(req,res){
     })
 });
 
-app.post("/add", function(req, res){
+app.post("/todo/add", function(req, res){
     var data= req.body;
     console.log(data);
     Todo.create(data, function(err, createdTodo){
@@ -38,7 +40,7 @@ app.post("/add", function(req, res){
     });
 });
 
-app.get("/:id",function(req,res){
+app.get("/todo/:id",function(req,res){
     // Todo.findById(req.params.id, function(err, found){
     //     if(err){
     //         console.log(err);
@@ -55,7 +57,7 @@ app.get("/:id",function(req,res){
     })
 });
 
-app.put("/:id", function(req, res){
+app.put("/todo/:id", function(req, res){
     // Todo.findByIdAndUpdate(req.params.id, req.body)
     // .then((updated) => {
     //     res.json(updated);
@@ -73,6 +75,7 @@ app.put("/:id", function(req, res){
     })
 });
 
-app.listen(4000,function(){
+var port = process.env.PORT || 4000
+app.listen(port,function(){
     console.log("listening to port 4000");
 })

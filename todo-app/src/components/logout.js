@@ -9,17 +9,17 @@ class Logout extends Component{
     componentDidMount(){
         axios.get("/logout")
         .then((response) => {
-            if(response.data === "success"){
-                console.log("success");
-                this.props.handlelogout();
-                this.props.history.push("/");
-            }
+            this.props.handlelogout();
+            this.props.history.push("/");
+        })
+        .catch((error) => {
+            console.log(error);
         })
     }
 
     render(){
         return (
-            <div><h1>logout</h1></div>
+            <div><h1>you shouldn't see this Logout page</h1></div>
         );
     }
 }

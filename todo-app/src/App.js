@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Route, Link} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect} from "react-router-dom";
 import axios from 'axios';
 import TodosList from "./components/todos.component";
 import EditTodo from "./components/edit-todo.component";
@@ -10,6 +10,11 @@ import DeleteTodo from "./components/delete-todo.component";
 import Register from "./components/Register";
 import Login from "./components/login";
 import Logout from './components/logout';
+
+const ProtectedRoute = ({component: Component, isLoggedIn, ...rest}) => {
+  return (<Route {...rest} render={(props) => {return isLoggedIn ? <Component {...props}/> : <Redirect to="/login" />}} />);
+}
+
 
 class App extends Component {
   constructor(props){
@@ -76,6 +81,7 @@ class App extends Component {
     })
   }
 
+
   render() {
     return (
       <Router>
@@ -113,7 +119,7 @@ class App extends Component {
         </nav>
           <Route path="/" exact component={TodosList} /> 
           <Route path="/edit/:id" component={EditTodo} />
-          <Route path="/create"  component={CreateTodo} />
+          <ProtectedRoute path="/create" isLoggedIn={this.state.isLoggedIn}  component={CreateTodo} />
           <Route path="/delete/:id" component={DeleteTodo} />
           <Route path="/register" render={props => (<Register {...props} handleinfo={this.userinfo} />)}/>
           <Route path="/login" render={props => (<Login {...props} handleinfo={this.userinfo} />)} />

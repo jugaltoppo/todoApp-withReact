@@ -20,7 +20,7 @@ export default class EditTodo extends Component {
     }
 
         componentDidMount(){
-           axios.get("https://stark-crag-73771.herokuapp.com/todo/" + this.props.match.params.id)
+           axios.get("/todo/" + this.props.match.params.id)
            .then( (res) => {
                this.setState({
                    todo_description: res.data.todo_description,
@@ -59,7 +59,7 @@ export default class EditTodo extends Component {
         }
 
         onSubmit = () => {
-            axios.put("https://stark-crag-73771.herokuapp.com/todo/" + this.props.match.params.id, this.state)
+            axios.put("/todo/" + this.props.match.params.id, this.state)
             .then((res) => {
                 console.log(res.data)
             })

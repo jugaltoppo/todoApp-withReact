@@ -11,7 +11,7 @@ export default class TodosList extends Component {
     }
     
     componentDidMount(){
-        axios.get("https://stark-crag-73771.herokuapp.com/todo")
+        axios.get("/todo")
         .then((res) => {
             this.setState({todos: res.data});
         })
@@ -21,7 +21,7 @@ export default class TodosList extends Component {
     }
 
     componentDidUpdate(){
-        axios.get("https://stark-crag-73771.herokuapp.com/todo")
+        axios.get("/todo")
         .then((res) => {
             this.setState({todos: res.data});
         })
@@ -50,7 +50,7 @@ export default class TodosList extends Component {
                                         <td className={data.todo_completed ? 'completed' : ''}>{data.todo_responsible}</td>
                                         <td className={data.todo_completed ? 'completed' : ''}>{data.todo_priority}</td>
                                         <td>{data.todo_completed ? "Yes" : "No"}</td>
-                                        <td><Link to={"/edit/" + data._id}>Edit</Link></td>
+                                        <td><Link to={"/edit/" + data._id}>Edit</Link> &nbsp; &nbsp;<Link to={"/delete/" + data._id}>Delete</Link></td>
                                      </tr>);
                         })}
                     </tbody>
